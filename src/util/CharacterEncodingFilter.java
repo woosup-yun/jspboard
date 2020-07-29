@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class Set
+ * Servlet Filter implementation class SetRequestCharEncodingFilter
  */
-//@WebFilter("/Set")
+//@WebFilter("/SetRequestCharEncodingFilter")
 public class CharacterEncodingFilter implements Filter {
 
     /**

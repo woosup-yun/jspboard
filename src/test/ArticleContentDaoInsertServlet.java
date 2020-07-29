@@ -2,8 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.util.Date;
-import java.util.Random;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,22 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import jdbc.JdbcUtil;
+import article.dao.ArticleContentDao;
+import article.model.ArticleContent;
 import jdbc.connection.ConnectionProvider;
-import member.dao.MemberDao;
-import member.model.Member;
 
 /**
- * Servlet implementation class MemberDaoInsertServlet
+ * Servlet implementation class ArticleContentDaoInsertServlet
  */
-@WebServlet("/MemberDaoInsertServlet")
-public class MemberDaoInsertServlet extends HttpServlet {
+@WebServlet("/ArticleContentDaoInsertServlet")
+public class ArticleContentDaoInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public MemberDaoInsertServlet() {
+	public ArticleContentDaoInsertServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,27 +33,34 @@ public class MemberDaoInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response)
 			throws ServletException, IOException {
+		ArticleContent content = new ArticleContent(1,
+				"content1");
+		ArticleContentDao dao = new ArticleContentDao();
 		Connection conn = null;
+
 		try {
-			MemberDao dao = new MemberDao();
 			conn = ConnectionProvider.getConnection();
-			Random rand = new Random();
-			Member mem = new Member("randomid" + rand.nextInt(100), "홍길동", "1111", new Date());
-			dao.insert(conn, mem);
-		} catch (Exception e) {
+
+			ArticleContent content2 = dao.insert(conn, content);
+
+			System.out.println(content2.getNumber());
+			System.out.println(content2.getContent());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			JdbcUtil.close(conn);
 		}
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

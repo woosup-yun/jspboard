@@ -17,7 +17,7 @@ import member.model.Member;
 /**
  * Servlet implementation class MemberDaoSelectServlet
  */
-@WebServlet("/testSelect")
+@WebServlet("/MemberDaoSelectServlet")
 public class MemberDaoSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,20 +36,20 @@ public class MemberDaoSelectServlet extends HttpServlet {
 		Connection conn = null;
 		
 		try {
-			conn= ConnectionProvider.getConnection();
+			conn = ConnectionProvider.getConnection();
 			MemberDao dao = new MemberDao();
-			Member mem = dao.selectById(conn, "randomid5");
+			Member mem = dao.selectById(conn, "randomid34");
 			
 			System.out.println(mem.getId());
 			System.out.println(mem.getName());
 			System.out.println(mem.getPassword());
 			System.out.println(mem.getRegDate());
-			
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JdbcUtil.close(conn);
 		}
+	
 	}
 
 	/**
